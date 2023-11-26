@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>List Rendering with Vue.js</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+</head>
+<body>
+
+  <div id="app">
+    <ul>
+      <li v-for="(item, index) in items" :key="index">
+        {{ item }}
+        <button @click="removeItem(index)">Remove</button>
+      </li>
+    </ul>
+    
+    <input v-model="newItem" type="text" />
+    <button @click="addItem">Add Item</button>
+  </div>
+
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        items: ['Apple', 'Banana', 'Orange'],
+        newItem: ''
+      },
+      methods: {
+        addItem: function() {
+          if (this.newItem.trim() !== '') {
+            this.items.push(this.newItem);
+            this.newItem = '';
+          }
+        },
+        removeItem: function(index) {
+          this.items.splice(index, 1);
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>

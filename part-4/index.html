@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue Form Handling and Validation</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+</head>
+<body>
+
+  <div id="app">
+    <form @submit.prevent="submitForm">
+      <label for="username">Username:</label>
+      <input type="text" id="username" v-model="username" required>
+      <p v-if="!isUsernameValid">Please enter a valid username.</p>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" v-model="email" required>
+      <p v-if="!isEmailValid">Please enter a valid email address.</p>
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" v-model="password" required>
+      <p v-if="!isPasswordValid">Password must be at least 6 characters long.</p>
+
+      <button type="submit" :disabled="!isFormValid">Submit</button>
+    </form>
+  </div>
+
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        username: '',
+        email: '',
+        password: '',
+      },
+      computed: {
+        isUsernameValid: function() {
+          return this.username.trim() !== '';
+        },
+        isEmailValid: function() {
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          return emailRegex.test(this.email);
+        },
+        isPasswordValid: function() {
+          return this.password.length >= 6;
+        },
+        isFormValid: function() {
+          return this.isUsernameValid && this.isEmailValid && this.isPasswordValid;
+        },
+      },
+      methods: {
+        submitForm: function() {
+          if (this.isFormValid) {
+            alert('Form submitted successfully!');
+          } else {
+            alert('Form contains validation errors. Please correct them.');
+          }
+        }
+      }
+    });
+  </script>
+  
+
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue Conditional Rendering - Task List</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+</head>
+<body>
+
+  <div id="app">
+    <h2>Task List</h2>
+    <ul>
+      <li v-for="task in tasks" :key="task.id" :class="{ 'completed': task.completed }">
+        <span v-if="!task.completed">{{ task.title }}</span>
+        <span v-else><del>{{ task.title }}</del></span>
+        <button @click="toggleTaskStatus(task)">Toggle Status</button>
+      </li>
+    </ul>
+
+    <div>
+      <label for="newTask">New Task:</label>
+      <input type="text" id="newTask" v-model="newTaskTitle">
+      <button @click="addTask">Add Task</button>
+    </div>
+  </div>
+
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        tasks: [
+          { id: 1, title: 'Complete Vue.js tutorial', completed: false },
+          { id: 2, title: 'Practice conditional rendering', completed: true },
+          { id: 3, title: 'Add new tasks dynamically', completed: false },
+        ],
+        newTaskTitle: '',
+      },
+      methods: {
+        toggleTaskStatus: function(task) {
+          task.completed = !task.completed;
+        },
+        addTask: function() {
+          if (this.newTaskTitle.trim() !== '') {
+            this.tasks.push({
+              id: this.tasks.length + 1,
+              title: this.newTaskTitle,
+              completed: false,
+            });
+            this.newTaskTitle = ''; 
+          }
+        },
+      },
+    });
+  </script>
+  
+
+</body>
+</html>

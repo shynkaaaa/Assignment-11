@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue Event Handling and Two-Way Binding</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+</head>
+<body>
+
+  <div id="app">
+    <label for="username">Enter your username:</label>
+    <input type="text" id="username" v-model="username">
+    <button @click="resetUsername">Reset Username</button>
+
+    <p>Greeting: {{ greetingMessage }}</p>
+  </div>
+
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        username: '',
+        defaultUsername: 'Guest',
+      },
+      computed: {
+        greetingMessage: function() {
+          return 'Hello, ' + this.username + '!';
+        }
+      },
+      methods: {
+        resetUsername: function() {
+          this.username = this.defaultUsername;
+        }
+      }
+    });
+  </script>
+</body>
+</html>
